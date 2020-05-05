@@ -1,4 +1,4 @@
-package com.yo.lock;
+package com.yo;
 
 
 import org.slf4j.Logger;
@@ -50,6 +50,12 @@ public class RedisLock {
             if (System.currentTimeMillis() - startTime - retryAwait > 0) {
                 logger.info(Thread.currentThread().getName() + "获取锁超时");
                 break;
+            }
+            // 休眠100ms 再获取
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                logger.error("error : ", e);
             }
         }
 
